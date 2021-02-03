@@ -16,9 +16,18 @@ public class SceneBehaviourController : MonoBehaviour
 
     public GameObject logo;
 
+    public Texture oldTex, newTex;
+
+    public Material mat;
+
+    public GameObject chair;
     // Start is called before the first frame update
     void Start()
     {
+        mat.SetTexture("_BaseMap", oldTex);
+
+
+
         foreach (GameObject go in objects)
         {
             go.SetActive(false);
@@ -56,6 +65,15 @@ public class SceneBehaviourController : MonoBehaviour
         }
 
         objects[_index].SetActive(true);
+    }
+
+    public void ChangeTexture()
+    {
+        chair.GetComponent<Renderer>().material.SetTexture("_BaseMap", newTex);
+
+
+
+        mat.SetTexture("_BaseMap", newTex);
     }
 
     public void TakeSnapshot()

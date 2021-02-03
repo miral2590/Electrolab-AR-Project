@@ -22,6 +22,7 @@ public class ObjectPlacementController : MonoBehaviour
 
     private static ObjectPlacementController instance;
 
+    private int objectCount;
     public static ObjectPlacementController Instance
     {
         get
@@ -36,6 +37,8 @@ public class ObjectPlacementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objectCount = 0;
+
         canRotate = isObjectPlaced = false;
         placementIndictor.SetActive(false);
         spawnObject.SetActive(false);
@@ -52,29 +55,79 @@ public class ObjectPlacementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isObjectPlaced)
+
+        /*
+         * 
+         * if(objectCount <= 2)
+         * {
+         *      1st object => Same as before
+         *      2nd object => if objectCount == 1
+         *      {
+         *           Show UI panel
+         *           -> Buttons -> Table(Value 1)
+         *           Table.SetActive(true)
+         *      }
+         *      
+         *      3rd object => if objectCount == 2
+         *      {
+         *           Show UI panel
+         *           -> Buttons -> Machine(Value 2)
+         *           Machine.SetActive(true)
+         *      }
+         * }
+         * 
+         * 
+         *  -----------
+         *      -----
+         *      -----
+         *      -----
+         * 
+         * 
+        */
+
+
+
+
+        if (objectCount <= 2)
         {
             UpdatePlacementPose();
             UpdatePlacementIndicator();
 
             if (isPlacementPoseValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                placementIndictor.SetActive(false);
+                /*placementIndictor.SetActive(false);
                 spawnObject.SetActive(true);
                 spawnObject.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+                objectCount++;
                 isObjectPlaced = true;
 
                 foreach (GameObject go in uiElements)
                 {
                     go.SetActive(true);
-                }
+                }*/
+
+               
+               /* UiPanel.SetActive(true);*/
             }
+
+            
 
             if (isPlacementPoseValid && canRotate)
             {
                 machine.transform.RotateAround(cor.transform.position, rotationSpeed * Time.deltaTime);
             }
         }
+    }
+
+    public void SpawnObject(int _index) // _index = 0
+    {
+       /* 3dObject[_index].SetActive(true);
+        3dObject[_index].transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+        objectCount++;
+
+        UiPanel.SetActive(false);*/
     }
 
     private void UpdatePlacementPose()
